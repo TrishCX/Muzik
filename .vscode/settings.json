@@ -1,7 +1,0 @@
-{
-  "editor.fontFamily": "JetBrains Mono, Comfortaa, Menlo, Monaco, 'Courier New', monospace",
-  "editor.smoothScrolling": true,
-  "terminal.integrated.smoothScrolling": true,
-  "workbench.list.smoothScrolling": true,
-  "editor.cursorSmoothCaretAnimation": "on"
-}
