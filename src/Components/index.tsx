@@ -5,3 +5,5 @@ export { default as ListTitle } from "./ListTitle/ListTitle";
 export { default as AlbumFlatListRendererProps } from "./AlbumFlatList/AlbumFlatList";
 export { default as VideoFlatList } from "./VideoFlatList/VideoFlatList";
 export { default as ArtistsAboutMe } from "./ArtistsAboutMe/ArtistsAboutMe";
+export { default as MusicFlatList } from "./MusicFlatList/MusicFlatList";
+export { default as LatestRelease } from "./LatestRelease/LatestRelease";

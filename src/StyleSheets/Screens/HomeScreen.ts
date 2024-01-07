@@ -17,7 +17,6 @@ export const HomeStyleSheet = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
     margin: 15,
-
     alignItems: "flex-end",
     flexDirection: "row",
   },
@@ -66,12 +65,5 @@ export const HomeStyleSheet = StyleSheet.create({
   imageStyle: {
     height: responsiveHeight(50),
   },
-  iconStyle: {
-    backgroundColor: "transparent",
-    borderRadius: 100,
-    shadowColor: "#1f1f1f",
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    elevation: 25,
-  },
+  iconStyle: {},
 });

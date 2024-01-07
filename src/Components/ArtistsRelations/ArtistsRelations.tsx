@@ -14,6 +14,7 @@ type Props = {
 const ArtistsRelations: React.FC<Props> & React.FunctionComponent<Props> = ({
   name,
   image,
+  id,
 }: Props): JSX.Element => {
   const _name = formatNameString(name);
 

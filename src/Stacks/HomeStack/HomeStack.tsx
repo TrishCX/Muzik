@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { OnBoardingStack } from "../OnBoardingStack/OnBoardingStack";
 import { AppStack } from "../AppStack/AppStack";
+import { LogBox } from "react-native";
 
 const { Navigator, Screen } = createNativeStackNavigator();
 

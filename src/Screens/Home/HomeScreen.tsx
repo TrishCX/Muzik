@@ -6,6 +6,7 @@ import {
   FlatList,
   Dimensions,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import React, { Fragment, useEffect, useState } from "react";
 import { HomeStyleSheet as styles } from "../../StyleSheets/Screens/HomeScreen";
@@ -22,6 +23,8 @@ import {
   AlbumFlatListRendererProps,
   VideoFlatList,
   ArtistsAboutMe,
+  MusicFlatList,
+  LatestRelease,
 } from "../../Components";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import * as Constants from "../../Constants/index";
@@ -55,56 +58,6 @@ export default function HomeScreen() {
   const HeaderComponent = (): JSX.Element => {
     return (
       <Fragment>
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            flex: 1,
-            bottom: 20,
-          }}
-        >
-          <View
-            style={{
-              flexDirection: "row",
-              ...styles.upperStarView,
-              justifyContent: "space-between",
-            }}
-          >
-            <View
-              style={{
-                marginLeft: 20,
-              }}
-            >
-              <Ionicons
-                style={{
-                  ...styles.iconStyle,
-                }}
-                name="ios-chevron-back"
-                size={22}
-                color="white"
-              />
-            </View>
-            <View
-              style={{
-                marginRight: 20,
-                shadowColor: "#171717",
-                shadowOffset: { width: -2, height: 4 },
-                shadowOpacity: 0.2,
-                shadowRadius: 3,
-              }}
-            >
-              <Ionicons
-                style={{
-                  ...styles.iconStyle,
-                }}
-                name="star-outline"
-                size={22}
-                color="white"
-              />
-            </View>
-          </View>
-        </View>
-
         <View style={styles.headerContainer}>
           <View
             style={{
@@ -122,15 +75,78 @@ export default function HomeScreen() {
               {data.name}
             </Text>
           </View>
-
-          <View style={styles.playButton}>
-            <Feather name="play" size={20} color="black" />
-          </View>
+          <TouchableOpacity>
+            <View style={styles.playButton}>
+              <Feather name="play" size={20} color="black" />
+            </View>
+          </TouchableOpacity>
         </View>
       </Fragment>
     );
   };
+  const HeaderTopBarComponent: React.FunctionComponent = (): JSX.Element => {
+    return (
+      <View
+        style={{
+          width: "100%",
+          paddingHorizontal: 8,
+          paddingTop: 32,
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <TouchableOpacity>
+          <View
+            style={{
+              marginLeft: 10,
+              width: 25,
+              height: 25,
+              justifyContent: "center",
+              alignItems: "center",
+              opacity: 0.5,
+              backgroundColor: "#212121",
+              borderRadius: 90,
+              marginTop: 20,
+            }}
+          >
+            <Ionicons
+              style={{
+                ...styles.iconStyle,
+              }}
+              name="ios-chevron-back"
+              size={15}
+              color="white"
+            />
+          </View>
+        </TouchableOpacity>
 
+        <TouchableOpacity>
+          <View
+            style={{
+              marginRight: 10,
+              width: 25,
+              height: 25,
+              justifyContent: "center",
+              alignItems: "center",
+              opacity: 0.5,
+              backgroundColor: "#212121",
+              borderRadius: 90,
+              marginTop: 20,
+            }}
+          >
+            <Ionicons
+              style={{
+                ...styles.iconStyle,
+              }}
+              name="star-outline"
+              size={15}
+              color="white"
+            />
+          </View>
+        </TouchableOpacity>
+      </View>
+    );
+  };
   const HeaderNavigationBar = (): JSX.Element => {
     return (
       <Fragment>
@@ -211,6 +227,7 @@ export default function HomeScreen() {
               <HeaderComponent />
             </>
           }
+          HeaderNavbarComponent={<HeaderTopBarComponent />}
           headerImage={{
             uri: data.header,
           }}
@@ -224,6 +241,8 @@ export default function HomeScreen() {
               marginTop: 30,
             }}
           >
+            <LatestRelease {...data.latest} />
+
             <View
               style={{
                 marginBottom: 10,
@@ -312,6 +331,51 @@ export default function HomeScreen() {
 
           <View
             style={{
+              marginTop: 20,
+            }}
+          >
+            <View
+              style={{
+                marginBottom: 20,
+                marginLeft: 10,
+              }}
+            >
+              <ListTitle
+                fontFamily={`${null}`}
+                includesArrow={true}
+                title={`Singles & EP`}
+              />
+            </View>
+
+            <View
+              style={{
+                ...Constants.CarouselInitialViewContainerStyles,
+                marginLeft: 10,
+              }}
+            >
+              <FlatList
+                data={data.singles}
+                keyExtractor={(_, index) => index.toString()}
+                horizontal={true}
+                renderItem={({ item }) => {
+                  return (
+                    <Fragment>
+                      <MusicFlatList
+                        {...item}
+                        copyright={item.copyright.toString() as string}
+                        label={item.label.toString() as string}
+                        image={item.coverArt}
+                        _id={item?.id}
+                      />
+                    </Fragment>
+                  );
+                }}
+              />
+            </View>
+          </View>
+
+          <View
+            style={{
               marginTop: 0,
             }}
           >
@@ -365,9 +429,11 @@ export default function HomeScreen() {
         </AnimatedScrollView>
       </LinearGradient>
       <StatusBar
-        translucent={true}
-        barStyle="default"
+        animated={true}
         backgroundColor={"transparent"}
+        barStyle="light-content"
+        translucent={true}
+        hidden={false}
       />
     </Fragment>
   );

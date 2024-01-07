@@ -71,6 +71,7 @@ const ArtistsAboutMe: React.FC<ArtistsAboutMeProps> &
             keyExtractor={(_key, index) => index.toString()}
             itemWidth={width}
             loop={false}
+            pagingEnabled={true}
             autoplay={false}
             sliderWidth={width - 100}
             renderItem={({ item }) => {

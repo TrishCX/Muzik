@@ -4,6 +4,7 @@ export const ArtistsRelations = StyleSheet.create({
   container: {
     margin: 10,
     marginTop: 20,
+    marginBottom: 50,
   },
   imageContainer: {},
   image: {
@@ -14,7 +15,6 @@ export const ArtistsRelations = StyleSheet.create({
   artistsName: {
     color: "#fff",
     maxWidth: 100,
-    fontSize: 13,
-    fontWeight: "500",
+    fontSize: 12,
   },
 });
