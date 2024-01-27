@@ -38,6 +38,8 @@ type ArtistsAboutMeProps = {
   worldRank?: number;
   relatedArtists?: RelatedArtists[];
   externals?: Externals[];
+  _font?: string;
+  _descriptiveFont?: string;
 };
 
 const ArtistsAboutMe: React.FC<ArtistsAboutMeProps> &
@@ -50,6 +52,8 @@ const ArtistsAboutMe: React.FC<ArtistsAboutMeProps> &
   name,
   relatedArtists,
   externals,
+  _font,
+  _descriptiveFont,
 }: ArtistsAboutMeProps): JSX.Element => {
   const { width, height } = Dimensions.get("window");
 
@@ -91,6 +95,7 @@ const ArtistsAboutMe: React.FC<ArtistsAboutMeProps> &
             additionalTitleStyles={{
               fontSize: 20,
             }}
+            fontFamily={_font}
             title="About"
           />
         </View>
@@ -101,6 +106,7 @@ const ArtistsAboutMe: React.FC<ArtistsAboutMeProps> &
             seeLessStyle={styles.seeLessStyles}
             style={{
               ...styles.biography,
+              fontFamily: _descriptiveFont,
             }}
           >
             {cleanAbout}
@@ -112,12 +118,18 @@ const ArtistsAboutMe: React.FC<ArtistsAboutMeProps> &
             ...styles.statsContainer,
           }}
         >
-          <Text style={{ ...styles.monthlyListenersText }}>
+          <Text
+            style={{
+              ...styles.monthlyListenersText,
+              fontFamily: _font,
+            }}
+          >
             {monthlyListeners.toLocaleString()}
           </Text>
           <Text
             style={{
               ...styles.listenersText,
+              fontFamily: _descriptiveFont,
             }}
           >
             Monthly Listeners
@@ -132,13 +144,14 @@ const ArtistsAboutMe: React.FC<ArtistsAboutMeProps> &
             return (
               <View style={styles.statsContainer}>
                 <View style={styles.statsDescriptiveContainer}>
-                  <Text style={{ ...styles.countriesText }}>
+                  <Text style={{ ...styles.countriesText, fontFamily: _font }}>
                     {item.city}, {item.country}
                   </Text>
                   <View style={styles.listenersContainer}>
                     <Text
                       style={{
                         ...styles.listenersText,
+                        fontFamily: _font,
                       }}
                     >
                       {item.totalListeners.toLocaleString()} listeners
@@ -157,6 +170,7 @@ const ArtistsAboutMe: React.FC<ArtistsAboutMeProps> &
             }}
             title={`Similar to ${name}`}
             includesArrow
+            fontFamily={_font}
           />
         </View>
 
@@ -164,7 +178,9 @@ const ArtistsAboutMe: React.FC<ArtistsAboutMeProps> &
           horizontal={true}
           data={relatedArtists}
           keyExtractor={(_, index) => index.toString()}
-          renderItem={({ item }) => <ArtistsRelations {...item} />}
+          renderItem={({ item }) => (
+            <ArtistsRelations {...item} font={_descriptiveFont} />
+          )}
         />
       </View>
     </Fragment>

@@ -2,6 +2,11 @@ function ARTIST_SEARCH(term: string) {
   const URL: string = `https://api-partner.spotify.com/pathfinder/v1/query?operationName=searchArtists&variables=%7B%22searchTerm%22%3A%22${term}%22%2C%22offset%22%3A0%2C%22limit%22%3A30%2C%22numberOfTopResults%22%3A20%2C%22includeAudiobooks%22%3Atrue%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%224e7cdd33163874d9db5e08e6fabc51ac3a1c7f3588f4190fc04c5b863f6b82bd%22%7D%7D`;
   return URL;
 }
+
+function SEARCH_QUERY(query: string) {
+  const URL: string = `https://api-partner.spotify.com/pathfinder/v1/query?operationName=searchDesktop&variables=%7B%22searchTerm%22%3A%22${query}%22%2C%22offset%22%3A0%2C%22limit%22%3A10%2C%22numberOfTopResults%22%3A5%2C%22includeAudiobooks%22%3Atrue%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22da03293d92a2cfc5e24597dcdc652c0ad135e1c64a78fddbf1478a7e096bea44%22%7D%7D`;
+  return URL;
+}
 function ARTIST_GET(id: string) {
   const URL: string = `https://api-partner.spotify.com/pathfinder/v1/query?operationName=queryArtistOverview&variables=%7B%22uri%22%3A%22spotify%3Aartist%3A${id}%22%2C%22locale%22%3A%22%22%2C%22includePrerelease%22%3Atrue%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%223a747b83568580814534e662a2569a6978ac3ad2e449ff751a859abe05dec995%22%7D%7D`;
   return URL;
@@ -25,6 +30,11 @@ function TRACK_SUGGESTION(browseId: string) {
 }
 function GENRES_GET(browseId: string) {
   const URL: string = `https://api-partner.spotify.com/pathfinder/v1/query?operationName=browsePage&variables=%7B%22pagePagination%22%3A%7B%22offset%22%3A0%2C%22limit%22%3A10%7D%2C%22sectionPagination%22%3A%7B%22offset%22%3A0%2C%22limit%22%3A10%7D%2C%22uri%22%3A%22spotify%3Apage%3A${browseId}%22%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%2208ddbd3d93eb0be629d5912e130a3f94ace1cc84c9fc6d47a4076f67c3bfbaab%22%7D%7D`;
+  return URL;
+}
+
+function GET_PLAYLIST(id: string) {
+  const URL: string = `https://api-partner.spotify.com/pathfinder/v1/query?operationName=fetchPlaylist&variables=%7B%22uri%22%3A%22spotify%3Aplaylist%3A${id}%22%2C%22offset%22%3A0%2C%22limit%22%3A25%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%2273a3b3470804983e4d55d83cd6cc99715019228fd999d51429cc69473a18789d%22%7D%7D`;
   return URL;
 }
 
@@ -54,6 +64,8 @@ export const END_POINTS = {
   ALBUM_GET,
   SECTIONS_GET,
   CREDITS,
+  SEARCH_QUERY,
+  GET_PLAYLIST,
   VIDEO_SEARCH,
   HOME_CONTENT: [
     // "0JQ5DAqbMKFz6FAsUtgAab",

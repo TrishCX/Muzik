@@ -15,3 +15,5 @@ export type { Videos, MusicShelfRendererContent } from "./Youtube/VideosSearch";
 export type { Playlist } from "./Youtube/Playlist";
 export type { VideoSearchTypes } from "./Youtube/VideoSearchTypes";
 export type { ExtraVideoSearch } from "./Youtube/ExtraVideoSearch";
+export type { SpotifyPlaylist } from "./Playlist/Playlist";
+export type { SearchData } from "./Query/SearchQuery";

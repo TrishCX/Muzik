@@ -17,6 +17,7 @@ export interface ILatest {
   label: string;
   playability: Playability;
   sharingInfo: SharingInfo;
+  font?: string;
 }
 
 export interface Copyright {
@@ -83,10 +84,15 @@ const LatestRelease: React.FC<ILatest> & React.FunctionComponent<ILatest> = ({
             rippleDuration={500}
           >
             <View style={styles.descriptiveContainer}>
-              <Text style={styles.yearStyles}>{formattedYear}</Text>
+              <Text style={{ ...styles.yearStyles, fontFamily: props.font }}>
+                {formattedYear}
+              </Text>
 
               <View style={styles.titleContainer}>
-                <Text style={styles.title} numberOfLines={2}>
+                <Text
+                  style={{ ...styles.title, fontFamily: props.font }}
+                  numberOfLines={2}
+                >
                   {props.name}
                 </Text>
               </View>

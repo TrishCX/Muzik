@@ -9,6 +9,7 @@ export type VerticalTracksProps = {
   playCount: string;
   coverArt: string;
   artists?: any[];
+  font?: string;
 };
 
 const VerticalTracks = ({
@@ -16,6 +17,7 @@ const VerticalTracks = ({
   coverArt,
   artists,
   playCount,
+  font,
 }: VerticalTracksProps) => {
   return (
     <Fragment>
@@ -51,14 +53,28 @@ const VerticalTracks = ({
 
           <View style={styles.detailsContainer}>
             <View style={styles.titleContainer}>
-              <Text numberOfLines={1} style={styles.title}>
+              <Text
+                numberOfLines={1}
+                style={{ ...styles.title, fontFamily: font }}
+              >
                 {title}
               </Text>
             </View>
 
             <View style={styles.artistsContainer}>
-              <Text numberOfLines={1} style={styles.artists}>
-                {artists.map((a) => a.profile?.name).join(", ")}
+              <Text
+                numberOfLines={1}
+                style={{ ...styles.artists, fontFamily: font }}
+              >
+                {artists
+                  .map((a) => {
+                    if (a?.profile) {
+                      return a.profile.name;
+                    } else {
+                      return a?.name;
+                    }
+                  })
+                  .join(", ")}
               </Text>
             </View>
           </View>

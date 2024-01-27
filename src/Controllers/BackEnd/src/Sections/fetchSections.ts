@@ -1,10 +1,9 @@
 import { request } from "../Request";
 import { END_POINTS } from "../Constants/constants";
 import type { SectionContent } from "../@types";
-import { parse as parser } from "spotify-uri";
 import { formatURI, formatAssets, fetchType } from "../Helpers";
 
-interface SectionResponse {
+export interface SectionResponse {
   name?: string;
   id?: string;
   type?: string;
@@ -41,23 +40,34 @@ export async function fetchSections(
     const __item = initialData;
 
     title = data.data?.browseSection?.data?.title?.transformedLabel;
+    const _artists = __item?.artists?.items?.map((a) => {
+      if (!a.uri && !a.profile?.name) return;
+
+      return {
+        name: a.profile?.name,
+        id: parser(a.uri),
+      };
+    });
 
     array.push({
-      name: __item?.name,
-      description: __item?.description,
-      artists:
-        __item?.artists?.items.map((artist) => ({
-          name: artist.profile?.name,
-          id: parser(artist.uri).id,
-        })) || undefined,
-      id: formatURI(__item?.uri),
-      type: fetchType(__item?.uri),
+      name: __item.name,
+      description: __item.description,
+      id: parser(__item.uri),
+      artists: _artists,
+      type: fetchType(__item.uri),
       image: formatAssets(__item),
     });
   }
+
   return {
     title: title,
     content: array,
     nextOffSet,
   };
+}
+
+function parser(uri: string) {
+  const uriParts = uri.split(":");
+  const artistId = uriParts[uriParts.length - 1];
+  return artistId;
 }

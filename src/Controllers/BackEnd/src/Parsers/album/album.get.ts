@@ -28,6 +28,7 @@ export interface IAlbum {
   name: string;
   artists: Artists[];
   date: string;
+  initialDate?: string;
   image: string;
   copyrights: CopyRights[];
   tracks: Tracks[];
@@ -47,14 +48,13 @@ export function parseAlbum(body: GetAlbum): IAlbum {
   const image = album?.coverArt?.sources[0]?.url;
   const tracks = album.tracks.items;
   const type = album.type;
+  const initialDate = album.date.isoString;
 
-  const copyrights = album.copyright.items.filter(
-    ({ type }) => type === CopyRight.C
-  );
+  const copyrights = album.copyright.items;
   for (const { track } of tracks) {
     tracksArray.push({
       name: track.name,
-      id: parse(track.uri).id,
+      id: extractIdFromSpotifyString(track.uri),
       durationMilliSeconds: track.duration?.totalMilliseconds,
       artists: track.artists.items.map((s) => ({
         name: s.profile.name,
@@ -71,5 +71,18 @@ export function parseAlbum(body: GetAlbum): IAlbum {
     image,
     tracks: tracksArray,
     type,
+    initialDate,
   };
+}
+function extractIdFromSpotifyString(spotifyString: string): string | null {
+  // Regular expression to match the ID after the last colon
+  const idRegex: RegExp = /[^:]+$/;
+
+  // Extracting the ID using the exec method
+  const match = idRegex.exec(spotifyString);
+
+  // Checking if there is a match and extracting the ID
+  const id: string | null = match ? match[0] : null;
+
+  return id;
 }

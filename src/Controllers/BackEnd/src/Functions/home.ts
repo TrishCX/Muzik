@@ -11,7 +11,8 @@ export async function home(props?: Props) {
   const fetches = await fetchHomeContent(props?.genreId as string);
 
   for (const sectionId of fetches.ids) {
-    const sections = await fetchSections(sectionId, props?.nextOffSet);
+    if (!sectionId) return;
+    const sections = await fetchSections(sectionId, props?.nextOffSet || 0);
     sectionsArray.push(sections);
   }
   return sectionsArray;

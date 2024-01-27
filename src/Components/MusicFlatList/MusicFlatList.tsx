@@ -9,6 +9,7 @@ type MusicFlatListProps = {
   songCount?: string;
   image?: string;
   _id?: string;
+  _font?: string;
   date?: {
     year: number;
     month: number;
@@ -45,14 +46,17 @@ const MusicFlatList: React.FC<MusicFlatListProps> &
           <Text numberOfLines={2} style={styles.title}>
             {props.title}
           </Text>
-          <View style={styles.descriptiveContainer}>
-            <Text style={styles.descriptiveText}>
+          <View style={{ ...styles.descriptiveContainer }}>
+            <Text
+              style={{ ...styles.descriptiveText, fontFamily: props._font }}
+            >
               Singles ∙ {props.date.year}
             </Text>
             <Text
               numberOfLines={1}
               style={{
                 ...styles.descriptiveText,
+                fontFamily: props._font,
               }}
             >
               {props.copyright}

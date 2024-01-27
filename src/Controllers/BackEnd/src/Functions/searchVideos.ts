@@ -11,7 +11,7 @@ interface Props {
   term?: string;
   continuation?: string;
 }
-interface VideoResponse {
+export interface VideoResponse {
   id?: string;
   title?: string;
   channel?: { name?: string; id: string };
@@ -19,9 +19,9 @@ interface VideoResponse {
   durationInMS?: number;
   thumbnailURL?: string;
   labeledYear?: string;
-  exactYear?: number;
+  exactYear?: string;
 }
-interface VideoResults {
+export interface VideoResults {
   continuationToken?: string;
   content: VideoResponse[];
 }
@@ -105,15 +105,15 @@ function parser(
     };
   } else {
     const data =
-      body.contents.twoColumnSearchResultsRenderer.primaryContents
-        .sectionListRenderer.contents;
+      body?.contents?.twoColumnSearchResultsRenderer?.primaryContents
+        ?.sectionListRenderer?.contents;
 
     const { token } =
       data[1].continuationItemRenderer.continuationEndpoint.continuationCommand;
 
     const continuationToken = token;
 
-    const contents = data[0].itemSectionRenderer.contents;
+    const contents = data[0]?.itemSectionRenderer?.contents;
 
     for (const content of contents) {
       const video = content?.videoRenderer;
@@ -141,12 +141,12 @@ function parser(
         durationInMS,
         thumbnailURL: `${thumbnailURL}"`,
         labeledYear,
-        exactYear,
+        exactYear: exactYear,
       });
     }
     return {
       continuationToken,
-      content: contentArray.filter((video) => video.exactYear !== null),
+      content: contentArray,
     };
   }
   function convertDurationToMilliseconds(duration: string): number {

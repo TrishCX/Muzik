@@ -10,3 +10,6 @@ export * from "./getCredits";
 export * from "./searchVideos";
 export * from "./getVideoPlaylist";
 export * from "./quickVideo";
+export * from "./getPlaylist";
+export * from "./getArtistsFromPlaylist";
+export * from "./searchQuery";

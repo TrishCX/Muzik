@@ -29,15 +29,15 @@ export const VerticalTrackStyleSheet = StyleSheet.create({
   titleContainer: {},
   title: {
     color: "white",
-    maxWidth: responsiveWidth(70),
+    maxWidth: responsiveWidth(60),
   },
   artistsContainer: {
-    marginTop: 5,
+    // marginTop: 5,
   },
   artists: {
     color: "gray",
     fontSize: 12,
 
-    maxWidth: responsiveWidth(65),
+    maxWidth: responsiveWidth(60),
   },
 });

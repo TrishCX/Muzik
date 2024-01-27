@@ -9,12 +9,14 @@ type Props = {
   name: string;
   image?: string;
   uri?: string;
+  font?: string;
 };
 
 const ArtistsRelations: React.FC<Props> & React.FunctionComponent<Props> = ({
   name,
   image,
   id,
+  font,
 }: Props): JSX.Element => {
   const _name = formatNameString(name);
 
@@ -39,13 +41,19 @@ const ArtistsRelations: React.FC<Props> & React.FunctionComponent<Props> = ({
         {name.length > 20 ? (
           <>
             {_name.map((username) => (
-              <Text key={username} style={styles.artistsName}>
+              <Text
+                key={username}
+                style={{ ...styles.artistsName, fontFamily: font }}
+              >
                 {username}
               </Text>
             ))}
           </>
         ) : (
-          <Text numberOfLines={0} style={styles.artistsName}>
+          <Text
+            numberOfLines={0}
+            style={{ ...styles.artistsName, fontFamily: font }}
+          >
             {name}
           </Text>
         )}
